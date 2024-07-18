@@ -76,7 +76,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d2f0da3998423f44594868ffed55c3e6,
         type: 3}
       propertyPath: m_Name
-      value: Box_350x250x300_Mesh
+      value: DemoInteractable
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d2f0da3998423f44594868ffed55c3e6,
         type: 3}
@@ -95,6 +95,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3928041183882377591}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d2f0da3998423f44594868ffed55c3e6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4953524619275516815}
   m_SourcePrefab: {fileID: 100100000, guid: d2f0da3998423f44594868ffed55c3e6, type: 3}
 --- !u!1 &3129033431877968162 stripped
 GameObject:
@@ -138,3 +142,19 @@ MonoBehaviour:
   player: {fileID: 0}
   followSpeed: 2
   isFollowing: 0
+--- !u!208 &4953524619275516815
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3129033431877968162}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.7500001, y: 1.25, z: 1.5000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 1.5000001}
+  m_TimeToStationary: 0.5

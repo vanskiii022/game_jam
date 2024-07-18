@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    // Start is called before the first frame update
+    public string[] levelMaps = new string[0];
+
     void Start()
     {
-        MapManager.Instance.ChangeMap("DemoMap");
+        MapManager.Instance.ChangeMap("World1");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ToStartMenu()
     {
-        
+
+    }
+
+    public void ToLevel(int i)
+    {
+        if (i < levelMaps.Length)
+        {
+            MapManager.Instance.ChangeMap(levelMaps[i]);
+        }
+        else
+        {
+            Debug.LogError("invalid level: " + i);
+        }
+    }
+
+    public void ToDeathMenu()
+    {
+
+    }
+
+    public void ToWinMenu()
+    {
+
     }
 }
