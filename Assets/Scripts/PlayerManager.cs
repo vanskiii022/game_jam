@@ -44,4 +44,12 @@ public class PlayerManager : Singleton<PlayerManager>
             return _characterController;
         }
     }
+
+    public void Respawn()
+    {
+        Vector3 spawnPos;
+        Quaternion spawnRot;
+        MapManager.Instance.GetSpawnPoint(out spawnPos, out spawnRot);
+        player.Teleport(spawnPos, spawnRot);
+    }
 }
