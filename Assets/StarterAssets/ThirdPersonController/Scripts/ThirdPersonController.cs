@@ -75,6 +75,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        public bool IsDead = false;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -157,8 +159,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            // 检测回车键被按下，且游戏尚未开始
-
+            if (IsDead) return;
                 _hasAnimator = TryGetComponent(out _animator);
 
                 JumpAndGravity();
@@ -198,7 +199,7 @@ namespace StarterAssets
                             }
                         }
                     }
-                
+
             }
         }
 

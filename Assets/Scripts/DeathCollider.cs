@@ -13,7 +13,8 @@ public class DeathCollider : MonoBehaviour
 
             if (playerManager != null)
             {
-                playerManager.Respawn();
+                playerManager.player.IsDead = true;
+                playerManager.StartCoroutine(playerManager.RespawnCoroutine());
             }
         }
     }

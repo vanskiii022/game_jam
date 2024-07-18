@@ -134,7 +134,10 @@ public class MapManager : Singleton<MapManager>
             if (input != null && input.switchSide)
             {
                 input.switchSide = false;
-                SwitchSide();
+                if (!PlayerManager.Instance.player.IsDead)
+                {
+                    SwitchSide();
+                }
             }
         }
     }

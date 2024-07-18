@@ -8,6 +8,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private ThirdPersonController _player;
     private StarterAssetsInputs _input;
     private CharacterController _characterController;
+    public float respawnFxTime = 0f;
 
     public ThirdPersonController player
     {
@@ -50,6 +51,16 @@ public class PlayerManager : Singleton<PlayerManager>
         Vector3 spawnPos;
         Quaternion spawnRot;
         MapManager.Instance.GetSpawnPoint(out spawnPos, out spawnRot);
+        var inputs = GetComponent<StarterAssetsInputs>();
+        inputs.jump = false;
+        input.switchSide = false;
         player.Teleport(spawnPos, spawnRot);
+        player.IsDead = false;
+    }
+
+    public IEnumerator RespawnCoroutine()
+    {
+        yield return new WaitForSeconds(respawnFxTime);
+        Respawn();
     }
 }
