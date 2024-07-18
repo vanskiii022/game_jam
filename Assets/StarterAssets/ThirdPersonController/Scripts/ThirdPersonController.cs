@@ -159,6 +159,41 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            if (_input.interact)
+            {
+                _input.interact = false;
+                Debug.Log("F pressed");
+                float distanceToInteract = 3f;
+                Vector3 playerPosition = transform.position;
+                Collider[] hitColliders = new Collider[10];
+                int numColliders = Physics.OverlapSphereNonAlloc(playerPosition, distanceToInteract, hitColliders);
+
+                for (int i = 0; i < numColliders; i++)
+                {
+                    if (hitColliders[i].CompareTag("interactable"))
+                    {
+                        FollowPlayer followPlayerScript = hitColliders[i].GetComponent<FollowPlayer>();
+                        if (followPlayerScript != null)
+                        {
+                            // 切换跟随状态而不是只是开始跟随
+                            followPlayerScript.ToggleFollowing();
+                            if (followPlayerScript.isFollowing)
+                            {
+                                Debug.Log(hitColliders[i].name + " started following.");
+                            }
+                            else
+                            {
+                                Debug.Log(hitColliders[i].name + " stopped following.");
+                            }
+                            break; // 假设一次只对一个物体进行操作
+                        }
+                        else
+                        {
+                            Debug.Log("Interactable object does not have a FollowPlayer component.");
+                        }
+                    }
+                }
+            }
         }
 
         private void LateUpdate()
