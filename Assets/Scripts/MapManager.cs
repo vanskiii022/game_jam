@@ -55,6 +55,9 @@ public class MapManager : Singleton<MapManager>
         SwitchEnemies(true);
         cameras[0].gameObject.SetActive(isASide);
         cameras[1].gameObject.SetActive(!isASide);
+        var player = PlayerManager.Instance.player;
+        Transform spawnPt = curMaps[0].transform.Find("SpawnPoint");
+        player.Teleport(spawnPt.position + Vector3.up * 0.42f, spawnPt.rotation);
     }
 
     public Vector3 GetPlayerRelativePos()
