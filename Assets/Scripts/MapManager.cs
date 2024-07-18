@@ -34,6 +34,11 @@ public class MapManager : Singleton<MapManager>
         cameras[1].gameObject.SetActive(!isASide);
     }
 
+    public Vector3 GetPlayerRelativePos()
+    {
+        return PlayerManager.Instance.transform.position - bSidePos * (isASide? 0 : 1);
+    }
+
     private void Update()
     {
         if (PlayerManager.Instance != null)
@@ -45,5 +50,11 @@ public class MapManager : Singleton<MapManager>
                 SwitchSide();
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        cameras[0].GetComponent<PlayerFollowCamera>().OnLateUpdate();
+        cameras[1].GetComponent<PlayerFollowCamera>().OnLateUpdate();
     }
 }
