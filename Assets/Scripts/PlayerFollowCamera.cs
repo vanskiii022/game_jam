@@ -9,7 +9,7 @@ public class PlayerFollowCamera : MonoBehaviour
     public bool isBSide;
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
-    public Vector3 offset = new Vector3(-10, 15, -10);
+    public Vector3 offset = new Vector3(10, 15, 10);
 
     public void OnLateUpdate()
     {
