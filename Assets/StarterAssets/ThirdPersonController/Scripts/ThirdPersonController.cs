@@ -279,6 +279,14 @@ namespace StarterAssets
             }
         }
 
+        public void Teleport(Vector3 pos)
+        {
+            Debug.Log("Teleport");
+            _controller.enabled = false;
+            transform.position = pos;
+            _controller.enabled = true;
+        }
+
         private void JumpAndGravity()
         {
             if (Grounded)
