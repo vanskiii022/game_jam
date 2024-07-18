@@ -98,7 +98,8 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         public Camera initialCamera; // 初始摄像机，游戏开始时从这个视角开始
-        public Camera MainCameraA; // 主游戏摄像机，游戏开始后切换到这个视角
+        private Camera MainCameraA; // 主游戏摄像机，游戏开始后切换到这个视角
+        public SkinnedMeshRenderer characterRenderer;
         private bool gameStarted = false; // 标记游戏是否已经开始
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -139,7 +140,6 @@ namespace StarterAssets
             // 确保初始摄像机激活，主游戏摄像机禁用
             if (initialCamera != null) initialCamera.gameObject.SetActive(true);
             if (MainCameraA != null) MainCameraA.gameObject.SetActive(false);
-
             gameStarted = false;
 
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
