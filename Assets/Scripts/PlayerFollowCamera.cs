@@ -17,6 +17,7 @@ public class PlayerFollowCamera : MonoBehaviour
         if (player != null)
         {
             Vector3 targetPosition = MapManager.Instance.GetPlayerRelativePos() + offset + (isBSide ? 1 : 0) * MapManager.Instance.bSidePos;
+            //transform.position = new Vector3(transform.position.x, targetPosition.y, transform.position.z);
             Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
             transform.position = smoothedPosition;
         }

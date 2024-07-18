@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8e72daa3fd14140b2f8a23d3deff44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initMapName: World1
+  initMapName: Level1
   levelMaps: []
 --- !u!114 &677542146
 MonoBehaviour:
@@ -2508,8 +2508,6 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  initialCamera: {fileID: 0}
-  characterRenderer: {fileID: 0}
 --- !u!143 &4416926083347132233
 CharacterController:
   m_ObjectHideFlags: 0
