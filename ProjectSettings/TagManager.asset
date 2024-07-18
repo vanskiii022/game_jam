@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - interactable
+  - roof
   layers:
   - Default
   - TransparentFX
