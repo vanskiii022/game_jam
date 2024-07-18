@@ -97,7 +97,10 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-
+        public Camera initialCamera; // 初始摄像机，游戏开始时从这个视角开始
+        private Camera MainCameraA; // 主游戏摄像机，游戏开始后切换到这个视角
+        public SkinnedMeshRenderer characterRenderer;
+        private bool gameStarted = false; // 标记游戏是否已经开始
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -134,6 +137,11 @@ namespace StarterAssets
 
         private void Start()
         {
+            // 确保初始摄像机激活，主游戏摄像机禁用
+            if (initialCamera != null) initialCamera.gameObject.SetActive(true);
+            if (MainCameraA != null) MainCameraA.gameObject.SetActive(false);
+            gameStarted = false;
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -154,42 +162,56 @@ namespace StarterAssets
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
-
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
-            if (_input.interact)
+            // 检测回车键被按下，且游戏尚未开始
+            if (!gameStarted && Input.GetKeyDown(KeyCode.Return))
             {
-                _input.interact = false;
-                Debug.Log("F pressed");
-                float distanceToInteract = 3f;
-                Vector3 playerPosition = transform.position;
-                Collider[] hitColliders = new Collider[10];
-                int numColliders = Physics.OverlapSphereNonAlloc(playerPosition, distanceToInteract, hitColliders);
+                gameStarted = true; // 标记游戏已经开始
 
-                for (int i = 0; i < numColliders; i++)
+                // 切换摄像机：禁用初始摄像机，激活主游戏摄像机
+                if (initialCamera != null) initialCamera.gameObject.SetActive(false);
+                if (MainCameraA != null) MainCameraA.gameObject.SetActive(true);
+            }
+
+            // 游戏已开始的逻辑...
+            if (gameStarted)
+            {
+                _hasAnimator = TryGetComponent(out _animator);
+
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+                if (_input.interact)
                 {
-                    if (hitColliders[i].CompareTag("interactable"))
+                    _input.interact = false;
+                    Debug.Log("F pressed");
+                    float distanceToInteract = 3f;
+                    Vector3 playerPosition = transform.position;
+                    Collider[] hitColliders = new Collider[10];
+                    int numColliders = Physics.OverlapSphereNonAlloc(playerPosition, distanceToInteract, hitColliders);
+
+                    for (int i = 0; i < numColliders; i++)
                     {
-                        FollowPlayer followPlayerScript = hitColliders[i].GetComponent<FollowPlayer>();
-                        if (followPlayerScript != null)
+                        if (hitColliders[i].CompareTag("interactable"))
                         {
-                            // 切换跟随状态而不是只是开始跟随
-                            followPlayerScript.ToggleFollowing();
-                            if (followPlayerScript.isFollowing)
+                            FollowPlayer followPlayerScript = hitColliders[i].GetComponent<FollowPlayer>();
+                            if (followPlayerScript != null)
                             {
-                                Debug.Log(hitColliders[i].name + " started following.");
+                                // 切换跟随状态而不是只是开始跟随
+                                followPlayerScript.ToggleFollowing();
+                                if (followPlayerScript.isFollowing)
+                                {
+                                    Debug.Log(hitColliders[i].name + " started following.");
+                                }
+                                else
+                                {
+                                    Debug.Log(hitColliders[i].name + " stopped following.");
+                                }
+                                break; // 假设一次只对一个物体进行操作
                             }
                             else
                             {
-                                Debug.Log(hitColliders[i].name + " stopped following.");
+                                Debug.Log("Interactable object does not have a FollowPlayer component.");
                             }
-                            break; // 假设一次只对一个物体进行操作
-                        }
-                        else
-                        {
-                            Debug.Log("Interactable object does not have a FollowPlayer component.");
                         }
                     }
                 }
