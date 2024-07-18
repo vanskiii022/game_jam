@@ -26,8 +26,6 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         loseSightTimer = loseSightDelay;
-        agent = GetComponent<NavMeshAgent>();
-        controller = GetComponent<CharacterController>();
         _hasAnimator = TryGetComponent(out _animator);
         agent.enabled = !isChasing;
         controller.enabled = isChasing;
@@ -82,7 +80,7 @@ public class EnemyAI : MonoBehaviour
         else
         {
             // ·µ»ØÑ²ÂßÂ·Ïß
-            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            if (agent && agent.enabled && !agent.pathPending && agent.remainingDistance < 0.5f)
             {
                 MoveToNextWaypoint();
             }
@@ -142,6 +140,7 @@ public class EnemyAI : MonoBehaviour
 
     public void SwitchSide(bool isASide)
     {
+        Debug.Log("SwitchSide " + isASide);
         this.isASide = isASide;
         Teleport(transform.position + MapManager.Instance.bSidePos * (isASide ? -1 : 1));
         aSideGeometry.SetActive(isASide);

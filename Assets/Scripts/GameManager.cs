@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public string initMapName = "DemoMap";
     public string[] levelMaps = new string[0];
 
     void Start()
     {
-        MapManager.Instance.ChangeMap("DemoMap");
+        MapManager.Instance.ChangeMap(initMapName);
     }
 
     public void ToStartMenu()

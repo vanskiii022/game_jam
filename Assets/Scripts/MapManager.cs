@@ -9,7 +9,15 @@ public class MapManager : Singleton<MapManager>
     public bool isASide = true;
     public Camera[] cameras = new Camera[2];
     public Vector3 bSidePos = new Vector3(0, 1000, 0);
+    public EnemyAI[] enemyAIs;
 
+    private void SwitchEnemies(bool toASide)
+    {
+        foreach (EnemyAI e in enemyAIs)
+        {
+            e.SwitchSide(toASide);
+        }
+    }
 
     public void SwitchSide()
     {
@@ -18,6 +26,19 @@ public class MapManager : Singleton<MapManager>
         player.Teleport(player.transform.position + bSidePos * (isASide ? -1 : 1));
         cameras[0].gameObject.SetActive(isASide);
         cameras[1].gameObject.SetActive(!isASide);
+        SwitchEnemies(isASide);
+    }
+
+    private void GetEnemies()
+    {
+        Transform enemiesParent = curMaps[1].transform.Find("Enemies");
+
+        // 如果找到了这个子物体
+        if (enemiesParent != null)
+        {
+            // 获取 "Enemies" 下所有具有 EnemyAI 组件的物体
+            enemyAIs = enemiesParent.GetComponentsInChildren<EnemyAI>(true);
+        }
     }
 
     public void ChangeMap(string mapName)
@@ -30,6 +51,8 @@ public class MapManager : Singleton<MapManager>
         curMaps[0] = Instantiate(mapA);
         curMaps[1] = Instantiate(mapB);
         curMaps[1].transform.position = bSidePos;
+        GetEnemies();
+        SwitchEnemies(true);
         cameras[0].gameObject.SetActive(isASide);
         cameras[1].gameObject.SetActive(!isASide);
     }
