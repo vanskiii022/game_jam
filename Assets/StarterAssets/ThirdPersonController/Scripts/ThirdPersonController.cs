@@ -323,9 +323,18 @@ namespace StarterAssets
         public void Teleport(Vector3 pos)
         {
             Debug.Log("Teleport");
-            _controller.enabled = false;
+            if (_controller) _controller.enabled = false;
             transform.position = pos;
-            _controller.enabled = true;
+            if (_controller) _controller.enabled = true;
+        }
+
+        public void Teleport(Vector3 pos, Quaternion rot)
+        {
+            Debug.Log("Teleport");
+            if (_controller) _controller.enabled = false;
+            transform.position = pos;
+            transform.rotation = rot;
+            if (_controller) _controller.enabled = true;
         }
 
         private void JumpAndGravity()
