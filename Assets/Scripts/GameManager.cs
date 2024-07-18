@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        MapManager.Instance.ChangeMap("World1");
+        MapManager.Instance.ChangeMap("DemoMap");
     }
 
     public void ToStartMenu()
