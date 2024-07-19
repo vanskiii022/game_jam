@@ -7,6 +7,7 @@ public class UIManager : Singleton<UIManager>
     public MainMenuPanel mainMenuPanel;
     public DeathPanel deathPanel;
     public WinPanel winPanel;
+    public HintPanel hintPanel;
 
     public void Show(PanelBase panel)
     {

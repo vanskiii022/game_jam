@@ -15,13 +15,15 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    // 创建新的GameObject并附加单例组件
-                    GameObject singletonObject = new GameObject();
-                    _instance = singletonObject.AddComponent<T>();
-                    singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    //// 创建新的GameObject并附加单例组件
+                    //GameObject singletonObject = new GameObject();
+                    //_instance = singletonObject.AddComponent<T>();
+                    //singletonObject.name = typeof(T).ToString() + " (Singleton)";
 
-                    // 确保单例对象不会在加载新场景时被销毁
-                    DontDestroyOnLoad(singletonObject);
+                    //// 确保单例对象不会在加载新场景时被销毁
+                    //DontDestroyOnLoad(singletonObject);
+
+                    return null;
                 }
             }
             return _instance;

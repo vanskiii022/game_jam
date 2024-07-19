@@ -100,6 +100,7 @@ public class MapManager : Singleton<MapManager>
     {
         if (curMaps[0]) Destroy(curMaps[0]);
         if (curMaps[1]) Destroy(curMaps[1]);
+        enemyAIs = new EnemyAI[0];
         curMapName = mapName;
         GameObject mapA = Resources.Load<GameObject>("Prefabs/Maps/" + curMapName + "_A");
         GameObject mapB = Resources.Load<GameObject>("Prefabs/Maps/" + curMapName + "_B");
@@ -134,7 +135,7 @@ public class MapManager : Singleton<MapManager>
             if (input != null && input.switchSide)
             {
                 input.switchSide = false;
-                if (!PlayerManager.Instance.player.IsDead)
+                if (!PlayerManager.Instance.player.isLocked)
                 {
                     SwitchSide();
                 }
@@ -144,7 +145,26 @@ public class MapManager : Singleton<MapManager>
 
     private void LateUpdate()
     {
-        cameras[0].GetComponent<PlayerFollowCamera>().OnLateUpdate();
-        cameras[1].GetComponent<PlayerFollowCamera>().OnLateUpdate();
+        if (cameras[0]) cameras[0].GetComponent<PlayerFollowCamera>().OnLateUpdate();
+        if (cameras[1]) cameras[1].GetComponent<PlayerFollowCamera>().OnLateUpdate();
+    }
+
+    public void BindCameras()
+    {
+        cameras[0] = GameObject.Find("MainCameraA").GetComponent<Camera>();
+        cameras[1] = GameObject.Find("MainCameraB").GetComponent<Camera>();
+        InitCameraActive();
+    }
+
+    public void InitCameraActive()
+    {
+        cameras[0].gameObject.SetActive(true);
+        cameras[1].gameObject.SetActive(false);
+    }
+
+    public void UnbindCameras()
+    {
+        cameras[0] = null;
+        cameras[1] = null;
     }
 }

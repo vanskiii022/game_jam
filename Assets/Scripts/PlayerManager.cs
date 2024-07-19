@@ -55,7 +55,7 @@ public class PlayerManager : Singleton<PlayerManager>
         inputs.jump = false;
         input.switchSide = false;
         player.Teleport(spawnPos, spawnRot);
-        player.IsDead = false;
+        player.isLocked = false;
     }
 
     public IEnumerator RespawnCoroutine()
