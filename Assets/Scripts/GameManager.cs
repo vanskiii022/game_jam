@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
     public string initMapName = "DemoMap";
     public string[] levelMaps = new string[0];
 
+    [NonSerialized]
+    public int curLevel = 1;
     private UIManager uiManager;
 
     void Start()
@@ -46,6 +48,7 @@ public class GameManager : Singleton<GameManager>
 
             if (i <= levelMaps.Length)
             {
+                curLevel = i;
                 MapManager.Instance.ChangeMap(levelMaps[i - 1]);
             }
             else
